@@ -45,4 +45,7 @@ end)
 -- Initial population of the player list
 updatePlayerList()
 
+_G.Modules = _G.Modules or {}
 _G.Modules[#_G.Modules + 1] = module
+
+return module
