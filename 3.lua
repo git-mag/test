@@ -13,8 +13,8 @@ local hiddenfling = false
 local oldCFrame
 
 -- Teleport variables
-local teleportedPlayers = {}
 local currentIndex = 0
+local allPlayers = {}
 
 local function getRoot(char)
     local rootPart = char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso")
@@ -95,7 +95,8 @@ end
 
 -- Function to teleport to each player in the game once
 local function teleportToAllPlayers()
-    local allPlayers = Players:GetPlayers()
+    -- Reset the list of players and current index
+    allPlayers = Players:GetPlayers()
 
     -- Remove the local player from the list of players to teleport to
     for i, player in ipairs(allPlayers) do
@@ -145,7 +146,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
--- Initialize teleportation with noclip and fling enabled
+-- Initialize with noclip and fling functionalities
 toggleNoclip()
 toggleFling()
-teleportToAllPlayers()
+
