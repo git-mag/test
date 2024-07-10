@@ -2,17 +2,24 @@
 local function createUIAboveHead(player)
     -- Check if the player's username matches "yarhmplus"
     if player.Name == "yarhmplus" then
-        -- Create the main frame above the head
+        -- Create BillboardGui above the head
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Name = "ImperialBillboard"
+        billboardGui.AlwaysOnTop = true
+        billboardGui.Size = UDim2.new(0, 300, 0, 100) -- Adjust size as needed
+        billboardGui.StudsOffset = Vector3.new(0, 3, 0) -- Adjust vertical offset
+        billboardGui.Parent = player.Character.Head
+
+        -- Create the main frame inside BillboardGui
         local imperialFrame = Instance.new("Frame")
-        imperialFrame.Name = "imperial"
-        imperialFrame.Size = UDim2.new(0, 300, 0, 100) -- Adjust size as needed
+        imperialFrame.Name = "Imperial"
+        imperialFrame.Size = UDim2.new(1, 0, 1, 0)
         imperialFrame.BackgroundTransparency = 1
-        imperialFrame.Position = UDim2.new(0, 0, 1, 0) -- Above the head
-        imperialFrame.Parent = player.Character.Head
+        imperialFrame.Parent = billboardGui
 
         -- Create the YARHM frame
         local yarhmFrame = Instance.new("Frame")
-        yarhmFrame.Name = "yarhm"
+        yarhmFrame.Name = "YARHM"
         yarhmFrame.Size = UDim2.new(0, 134, 0, 29)
         yarhmFrame.Position = UDim2.new(0.063, 0, 0.124, 0)
         yarhmFrame.BackgroundTransparency = 1
@@ -38,7 +45,7 @@ local function createUIAboveHead(player)
 
         -- Create the Developer frame
         local developerFrame = Instance.new("Frame")
-        developerFrame.Name = "developer"
+        developerFrame.Name = "Developer"
         developerFrame.Size = UDim2.new(0, 134, 0, 29)
         developerFrame.Position = UDim2.new(0.523, 0, 0.124, 0)
         developerFrame.BackgroundTransparency = 1
@@ -64,7 +71,7 @@ local function createUIAboveHead(player)
 
         -- Create the Name frame
         local nameFrame = Instance.new("Frame")
-        nameFrame.Name = "name"
+        nameFrame.Name = "Name"
         nameFrame.Size = UDim2.new(0, 214, 0, 33)
         nameFrame.Position = UDim2.new(0.178, 0, 0.494, 0)
         nameFrame.BackgroundTransparency = 1
@@ -90,13 +97,17 @@ local function createUIAboveHead(player)
     end
 end
 
+-- Function to check existing players when the script starts
+local function checkExistingPlayers()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        createUIAboveHead(player)
+    end
+end
+
 -- Monitor when a player is added to the game
 game.Players.PlayerAdded:Connect(function(player)
-    -- Call the function to create the UI above the player's head
     createUIAboveHead(player)
 end)
 
 -- Check for existing players when the script starts
-for _, player in ipairs(game.Players:GetPlayers()) do
-    createUIAboveHead(player)
-end
+checkExistingPlayers()
