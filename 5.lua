@@ -58,6 +58,18 @@ function flingScript(target)
                 local function touchPlayer()
                     localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
                     wait(0.1)
+                    if player.Character:FindFirstChild("Head") then
+                        localPlayer.Character.HumanoidRootPart.CFrame = player.Character.Head.CFrame
+                        wait(0.1)
+                    end
+                    if player.Character:FindFirstChild("LeftLeg") then
+                        localPlayer.Character.HumanoidRootPart.CFrame = player.Character.LeftLeg.CFrame
+                        wait(0.1)
+                    end
+                    if player.Character:FindFirstChild("RightLeg") then
+                        localPlayer.Character.HumanoidRootPart.CFrame = player.Character.RightLeg.CFrame
+                        wait(0.1)
+                    end
                 end
                 touchPlayer()
             end
@@ -68,6 +80,18 @@ function flingScript(target)
             local function touchPlayer()
                 localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
                 wait(0.1)
+                if targetPlayer.Character:FindFirstChild("Head") then
+                    localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.Head.CFrame
+                    wait(0.1)
+                end
+                if targetPlayer.Character:FindFirstChild("LeftLeg") then
+                    localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.LeftLeg.CFrame
+                    wait(0.1)
+                end
+                if targetPlayer.Character:FindFirstChild("RightLeg") then
+                    localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.RightLeg.CFrame
+                    wait(0.1)
+                end
             end
             touchPlayer()
         end
@@ -93,6 +117,21 @@ local function teleportAndTouch(targetPlayer)
 
     hrp.CFrame = targetHrp.CFrame
     wait(0.1)
+
+    if targetPlayer.Character:FindFirstChild("Head") then
+        hrp.CFrame = targetPlayer.Character.Head.CFrame
+        wait(0.1)
+    end
+
+    if targetPlayer.Character:FindFirstChild("LeftLeg") then
+        hrp.CFrame = targetPlayer.Character.LeftLeg.CFrame
+        wait(0.1)
+    end
+
+    if targetPlayer.Character:FindFirstChild("RightLeg") then
+        hrp.CFrame = targetPlayer.Character.RightLeg.CFrame
+        wait(0.1)
+    end
 end
 
 -- Run fling script for each player in the server one time
