@@ -23,7 +23,7 @@ local function createUIAboveHead(player)
 		BillboardGui.Size = UDim2.new(0, 150, 0, 50)  -- Adjusted size
 		BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
 		BillboardGui.AlwaysOnTop = true
-		BillboardGui.MaxDistance = 10  -- Only visible from up to 10 studs away
+		BillboardGui.MaxDistance = 30  -- Only visible from up to 10 studs away
 
 
 		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
