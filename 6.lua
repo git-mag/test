@@ -8,6 +8,22 @@ function getPlr(name)
     return nil
 end
 
+-- Noclip function
+local function noclip()
+    local Clip = false
+    wait(0.1)
+    local function NoclipLoop()
+        if Clip == false and game.Players.LocalPlayer.Character ~= nil then
+            for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                if child:IsA("BasePart") and child.CanCollide == true then
+                    child.CanCollide = false
+                end
+            end
+        end
+    end
+    return game:GetService("RunService").Stepped:Connect(NoclipLoop)
+end
+
 -- Fling script
 function flingScript(target)
     local Players = game:GetService("Players")
@@ -56,6 +72,7 @@ function flingScript(target)
         for _, player in ipairs(Players:GetPlayers()) do
             if player ~= localPlayer then
                 local function touchPlayer()
+                    local noclipConnection = noclip()
                     localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
                     wait(0.1)
                     if player.Character:FindFirstChild("Head") then
@@ -70,6 +87,7 @@ function flingScript(target)
                         localPlayer.Character.HumanoidRootPart.CFrame = player.Character.RightLeg.CFrame
                         wait(0.1)
                     end
+                    noclipConnection:Disconnect()
                 end
                 touchPlayer()
             end
@@ -78,6 +96,7 @@ function flingScript(target)
         local targetPlayer = getPlr(target)
         if targetPlayer then
             local function touchPlayer()
+                local noclipConnection = noclip()
                 localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
                 wait(0.1)
                 if targetPlayer.Character:FindFirstChild("Head") then
@@ -92,6 +111,7 @@ function flingScript(target)
                     localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.RightLeg.CFrame
                     wait(0.1)
                 end
+                noclipConnection:Disconnect()
             end
             touchPlayer()
         end
@@ -115,6 +135,8 @@ local function teleportAndTouch(targetPlayer)
     local targetHrp = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
     if not targetHrp then return end
 
+    local noclipConnection = noclip()
+
     hrp.CFrame = targetHrp.CFrame
     wait(0.1)
 
@@ -132,6 +154,8 @@ local function teleportAndTouch(targetPlayer)
         hrp.CFrame = targetPlayer.Character.RightLeg.CFrame
         wait(0.1)
     end
+
+    noclipConnection:Disconnect()
 end
 
 -- Run fling script for each player in the server one time
