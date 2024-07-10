@@ -33,8 +33,9 @@ local function createDeveloperTag(player)
     background.ClipsDescendants = true
     background.AnchorPoint = Vector2.new(0.5, 1)
     background.Position = UDim2.new(0.5, 0, 1, 0)
-    background.Size = UDim2.new(1, 0, 0.2, 0)
+    background.Size = UDim2.new(1, 0, 0.3, 0)  -- Adjusted height and width
     background.ZIndex = 10
+    background.CornerRadius = UDim.new(0.5, 0)  -- Rounded corners
 
     -- Create TextLabel for text
     local textLabel = Instance.new("TextLabel", background)
