@@ -55,47 +55,25 @@ function flingScript(target)
     if target == "all" or target == "others" then
         for _, player in ipairs(Players:GetPlayers()) do
             if player ~= localPlayer then
-                for i = 1, 10 do
-                    wait(0.017)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 4)
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -2)
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -3)
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2)
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -1)
-                    wait(0.01)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -1)
+                local function touchPlayer()
+                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
+                    wait(0.1)
+                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+                    wait(0.1)
                 end
+                touchPlayer()
             end
         end
     else
         local targetPlayer = getPlr(target)
         if targetPlayer then
-            for i = 1, 10 do
-                wait(0.017)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 4)
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -2)
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -3)
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2)
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -1)
-                wait(0.01)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -1)
+            local function touchPlayer()
+                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
+                wait(0.1)
+                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+                wait(0.1)
             end
+            touchPlayer()
         end
     end
 
@@ -108,7 +86,7 @@ end
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
--- Helper function to teleport and touch players gently
+-- Helper function to teleport and touch players
 local function teleportAndTouch(targetPlayer)
     local character = localPlayer.Character
     local hrp = character and character:FindFirstChild("HumanoidRootPart")
@@ -117,13 +95,10 @@ local function teleportAndTouch(targetPlayer)
     local targetHrp = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
     if not targetHrp then return end
 
-    local steps = 10
-    local increment = (targetHrp.Position - hrp.Position) / steps
-
-    for i = 1, steps do
-        hrp.CFrame = CFrame.new(hrp.Position + increment)
-        wait(0.1)
-    end
+    hrp.CFrame = targetHrp.CFrame * CFrame.new(0, 0, 3)
+    wait(0.1)
+    hrp.CFrame = targetHrp.CFrame * CFrame.new(0, 0, 1)
+    wait(0.1)
 end
 
 -- Run fling script for each player in the server one time
