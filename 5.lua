@@ -18,14 +18,15 @@ local function createUIAboveHead(player)
         local UIGradient2 = Instance.new("UIGradient", yarhm)
 
         -- Properties:
-        BillboardGui.Adornee = player.Character.Head
-        BillboardGui.Size = UDim2.new(0, 500, 0, 100)
-        BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+      BillboardGui.Adornee = player.Character.Head
+        BillboardGui.Size = UDim2.new(0, 200, 0, 50)  -- Adjust size as needed
+        BillboardGui.StudsOffset = Vector3.new(0, 2, 0)  -- Adjust vertical offset
         BillboardGui.AlwaysOnTop = true
+        BillboardGui.MaxDistance = 10  -- Visibility distance limit
 
         Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Frame.BackgroundTransparency = 1
-        Frame.Size = UDim2.new(0, 100, 0, 100)
+        Frame.Size = UDim2.new(1, 0, 1, 0)  -- Full size of the BillboardGui
 
         Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
