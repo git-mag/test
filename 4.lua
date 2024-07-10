@@ -29,7 +29,6 @@ local function createUIAboveHead(player)
 		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame.BackgroundTransparency = 1
 		Frame.Size = UDim2.new(1, 0, 1, 0)
-		Frame.Position = UDim2.new(0, 0, 0, 0)
 
 		Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
