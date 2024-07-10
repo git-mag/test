@@ -27,6 +27,8 @@ local function createUIAboveHead(player)
 		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame.BackgroundTransparency = 1
 		Frame.Size = UDim2.new(0, 100, 0, 100)
+		Frame1.Position = UDim2.new(0, 120, 0, 0)
+		
 
 		Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -52,7 +54,7 @@ local function createUIAboveHead(player)
 
 		developer.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		developer.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		developer.Position = UDim2.new(1.65, 0, -0.01, 0)
+		developer.Position = UDim2.new(1.65, 0, -0.013, 0)
 		developer.Size = UDim2.new(0, 134, 0, 29)
 
 		UICorner1.CornerRadius = UDim.new(0, 5)
@@ -74,7 +76,7 @@ local function createUIAboveHead(player)
 
 		yarhm.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		yarhm.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		yarhm.Position = UDim2.new(-0.2, 0, -0.01, 0)
+		yarhm.Position = UDim2.new(-0.2, 0, -0.013, 0)
 		yarhm.Size = UDim2.new(0, 134, 0, 29)
 
 		UICorner2.CornerRadius = UDim.new(0, 5)
