@@ -56,9 +56,7 @@ function flingScript(target)
         for _, player in ipairs(Players:GetPlayers()) do
             if player ~= localPlayer then
                 local function touchPlayer()
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
-                    wait(0.1)
-                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+                    localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
                     wait(0.1)
                 end
                 touchPlayer()
@@ -68,9 +66,7 @@ function flingScript(target)
         local targetPlayer = getPlr(target)
         if targetPlayer then
             local function touchPlayer()
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
-                wait(0.1)
-                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+                localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
                 wait(0.1)
             end
             touchPlayer()
@@ -95,9 +91,7 @@ local function teleportAndTouch(targetPlayer)
     local targetHrp = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
     if not targetHrp then return end
 
-    hrp.CFrame = targetHrp.CFrame * CFrame.new(0, 0, 3)
-    wait(0.1)
-    hrp.CFrame = targetHrp.CFrame * CFrame.new(0, 0, 1)
+    hrp.CFrame = targetHrp.CFrame
     wait(0.1)
 end
 
