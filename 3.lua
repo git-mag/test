@@ -132,10 +132,11 @@ Converted["_UIGradient2"].Color = ColorSequence.new{
 }
 Converted["_UIGradient2"].Parent = Converted["_yarhm"]
 
+		}
+		end
+		end
 
-
-
-local function checkExistingPlayers()
+		local function checkExistingPlayers()
 	for _, player in ipairs(game.Players:GetPlayers()) do
 		createUIAboveHead(player)
 	end
@@ -148,3 +149,4 @@ end)
 
 -- Check for existing players when the script starts
 checkExistingPlayers()
+
