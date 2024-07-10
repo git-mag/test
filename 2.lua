@@ -6,18 +6,34 @@ local TeleportService = game:GetService("TeleportService")
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "PlayerListGui"
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
 
 -- Create Frame
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 400, 0, 600)
 frame.Position = UDim2.new(0, 50, 0, 50)
-frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+frame.ClipsDescendants = true
 frame.Parent = screenGui
+
+-- Add UICorner to Frame
+local frameCorner = Instance.new("UICorner")
+frameCorner.CornerRadius = UDim.new(0, 10)
+frameCorner.Parent = frame
+
+-- Create Resizable Constraint
+local uiResizeConstraint = Instance.new("UISizeConstraint")
+uiResizeConstraint.MinSize = Vector2.new(200, 300)
+uiResizeConstraint.MaxSize = Vector2.new(600, 900)
+uiResizeConstraint.Parent = frame
 
 -- Create UIListLayout
 local listLayout = Instance.new("UIListLayout")
 listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+listLayout.Padding = UDim.new(0, 5)
 listLayout.Parent = frame
 
 -- Function to teleport to player
@@ -36,11 +52,18 @@ end
 local function createPlayerButton(player)
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, -10, 0, 50)
-    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     button.BorderSizePixel = 0
+    button.Font = Enum.Font.Gotham
     button.Text = player.Name
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.TextSize = 18
     button.Parent = frame
+
+    -- Add UICorner to Button
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 10)
+    buttonCorner.Parent = button
 
     -- Load player's profile picture
     local thumbnailUrl = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
@@ -49,6 +72,11 @@ local function createPlayerButton(player)
     imageLabel.Position = UDim2.new(0, 0, 0, 0)
     imageLabel.Image = thumbnailUrl
     imageLabel.Parent = button
+
+    -- Add UICorner to ImageLabel
+    local imageCorner = Instance.new("UICorner")
+    imageCorner.CornerRadius = UDim.new(0, 10)
+    imageCorner.Parent = imageLabel
 
     -- Adjust text position
     button.TextXAlignment = Enum.TextXAlignment.Left
@@ -83,4 +111,3 @@ Players.PlayerRemoving:Connect(function(player)
         end
     end
 end)
-
