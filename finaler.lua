@@ -16,23 +16,22 @@ local specialText = "YARHM+"
 local specialFontColor = Color3.fromHex("#ffac33")
 
 local specialItemIds = {
-    18333160858, -- Red Varsity Jacket: Shapes and Stripes
-    18169574248  -- Shapes & Stripes White
+    18333160858, 
+    18169574248  
 }
 
--- Function to create the text label above the player's head
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
         -- Main text label (YARHM Developer or YARHM+)
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Name = "DeveloperTag"
-        mainTextLabel.Size = UDim2.new(4, 0, 1, 0)  -- Adjust the size to control scaling
-        mainTextLabel.StudsOffset = Vector3.new(0, 2.5, 0)  -- Raise the main text slightly
+        mainTextLabel.Size = UDim2.new(4, 0, 1, 0) 
+        mainTextLabel.StudsOffset = Vector3.new(0, 2.5, 0)  
         mainTextLabel.Adornee = head
         mainTextLabel.AlwaysOnTop = true
-        mainTextLabel.MaxDistance = 50  -- Limit the distance at which the label is visible
-        mainTextLabel.LightInfluence = 0  -- Ensure the text is not affected by lighting
+        mainTextLabel.MaxDistance = 50 
+        mainTextLabel.LightInfluence = 0 
 
         local mainTextElement = Instance.new("TextLabel")
         mainTextElement.Size = UDim2.new(1, 0, 1, 0)
@@ -47,7 +46,6 @@ local function createTextLabel(player, text, color)
     end
 end
 
--- Function to check if a player owns a special item
 local function ownsSpecialItem(player, callback)
     for _, itemId in ipairs(specialItemIds) do
         local success, hasPass = pcall(MarketplaceService.PlayerOwnsAsset, MarketplaceService, player, itemId)
