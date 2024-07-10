@@ -94,7 +94,7 @@ local function createUIAboveHead(player)
 			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
 		}
 
-		BillboardGui.Parent = player.Character.Head
+		BillboardGui.Parent = player.Character.Head.HatAttachment
 	end
 end
 
