@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local usernameColors = {
-    ["Xxxs_omeonexxx"] = Color3.fromHex("#f48fff"),
+    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -27,11 +27,13 @@ local function createTextLabel(player, text, color)
         -- Main text label (YARHM Developer or YARHM+)
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Name = "DeveloperTag"
-        mainTextLabel.Size = UDim2.new(0, 200, 0, 50)
-        mainTextLabel.StudsOffset = Vector3.new(0, 1, 0)  -- Raise the main text slightly lower
+        mainTextLabel.Size = UDim2.new(4, 0, 1, 0)  -- Adjust the size to control scaling
+        mainTextLabel.StudsOffset = Vector3.new(0, 2.5, 0)  -- Raise the main text slightly
         mainTextLabel.Adornee = head
         mainTextLabel.AlwaysOnTop = true
-        
+        mainTextLabel.MaxDistance = 50  -- Limit the distance at which the label is visible
+        mainTextLabel.LightInfluence = 0  -- Ensure the text is not affected by lighting
+
         local mainTextElement = Instance.new("TextLabel")
         mainTextElement.Size = UDim2.new(1, 0, 1, 0)
         mainTextElement.Text = text
@@ -64,8 +66,6 @@ local function checkForPlayer(player)
         ownsSpecialItem(player, function(hasItem)
             if hasItem then
                 createTextLabel(player, specialText, specialFontColor)
-            else
-                createTextLabel(player, mainText, Color3.new(1, 1, 1)) -- Default color if not in usernameColors
             end
         end)
     end
