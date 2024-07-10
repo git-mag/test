@@ -20,15 +20,13 @@ local function createUIAboveHead(player)
 
 		-- Properties:
 		BillboardGui.Adornee = player.Character.Head
-		BillboardGui.Size = UDim2.new(0, 150, 0, 50)  -- Adjusted size
+		BillboardGui.Size = UDim2.new(0, 500, 0, 100)
 		BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
 		BillboardGui.AlwaysOnTop = true
-		BillboardGui.MaxDistance = 30  -- Only visible from up to 10 studs away
-
 
 		Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame.BackgroundTransparency = 1
-		Frame.Size = UDim2.new(1, 0, 1, 0)
+		Frame.Size = UDim2.new(0, 100, 0, 100)
 
 		Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -67,7 +65,7 @@ local function createUIAboveHead(player)
 		TextLabel1.TextWrapped = true
 		TextLabel1.BackgroundTransparency = 1
 		TextLabel1.Position = UDim2.new(0.02, 0, 0.07, 0)
-		TextLabel1.Size = UDim2.new(1, 0, 1, 0)
+		TextLabel1.Size = UDim2.new(0, 131, 0, 24)
 
 		UIGradient1.Color = ColorSequence.new{
 			ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
