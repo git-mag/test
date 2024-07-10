@@ -26,22 +26,21 @@ local function createDeveloperTag(player)
     -- Create Frame for background
     local background = Instance.new("Frame", billboard)
     background.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Bright red
-    background.BackgroundTransparency = 0.5  -- Adjust transparency
+    background.BackgroundTransparency = 0  -- Adjust transparency
     background.Size = UDim2.new(1, 0, 1, 0)
     background.Position = UDim2.new(0, 0, 0, 0)
     background.BorderSizePixel = 0
     background.ClipsDescendants = true
     background.AnchorPoint = Vector2.new(0.5, 1)
     background.Position = UDim2.new(0.5, 0, 1, 0)
-    background.Size = UDim2.new(1, 0, 0.3, 0)  -- Adjusted height and width
+    background.Size = UDim2.new(1, 0, 0.2, 0)
     background.ZIndex = 10
-    background.CornerRadius = UDim.new(0.5, 0)  -- Rounded corners
 
     -- Create TextLabel for text
     local textLabel = Instance.new("TextLabel", background)
     textLabel.Text = "YARHM Developer"
     textLabel.Font = Enum.Font.Gotham
-    textLabel.TextSize = 14
+    textLabel.TextSize = 15
     textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.BackgroundTransparency = 1
