@@ -93,43 +93,42 @@ local function toggleFling()
     end
 end
 
--- Function to teleport to each player in the game
-local function teleportToNextPlayer()
+-- Function to teleport to each player in the game once
+local function teleportToAllPlayers()
     local allPlayers = Players:GetPlayers()
-    
-    -- Skip the local player
+
+    -- Remove the local player from the list of players to teleport to
     for i, player in ipairs(allPlayers) do
         if player == Players.LocalPlayer then
             table.remove(allPlayers, i)
             break
         end
     end
-    
-    -- Check if there are players to teleport to
-    if #allPlayers == 0 then
-        print("No players to teleport to.")
-        return
-    end
-    
-    currentIndex = currentIndex + 1
-    if currentIndex > #allPlayers then
-        print("Teleported to all players.")
-        return
-    end
-    
-    local targetPlayer = allPlayers[currentIndex]
-    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        local targetRootPart = targetPlayer.Character.HumanoidRootPart
-        local localPlayerRootPart = getRoot(Players.LocalPlayer.Character)
-        
-        if localPlayerRootPart then
-            -- Teleport to the target player
-            localPlayerRootPart.CFrame = targetRootPart.CFrame
+
+    -- Iterate through all players and teleport to each one
+    local function teleportToNextPlayer()
+        currentIndex = currentIndex + 1
+        if currentIndex > #allPlayers then
+            print("Teleported to all players.")
+            return
         end
+
+        local targetPlayer = allPlayers[currentIndex]
+        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local targetRootPart = targetPlayer.Character.HumanoidRootPart
+            local localPlayerRootPart = getRoot(Players.LocalPlayer.Character)
+
+            if localPlayerRootPart then
+                -- Teleport to the target player
+                localPlayerRootPart.CFrame = targetRootPart.CFrame
+            end
+        end
+
+        -- Set a delay before teleporting to the next player
+        wait(2)  -- Adjust the delay as needed
+        teleportToNextPlayer()
     end
-    
-    -- Set a delay before teleporting to the next player
-    wait(2)  -- Adjust the delay as needed
+
     teleportToNextPlayer()
 end
 
@@ -141,7 +140,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
         elseif input.KeyCode == Enum.KeyCode.F then
             toggleFling()
         elseif input.KeyCode == Enum.KeyCode.T then
-            teleportToNextPlayer()
+            teleportToAllPlayers()
         end
     end
 end)
@@ -149,4 +148,4 @@ end)
 -- Initialize teleportation with noclip and fling enabled
 toggleNoclip()
 toggleFling()
-teleportToNextPlayer()
+teleportToAllPlayers()
