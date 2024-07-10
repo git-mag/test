@@ -108,11 +108,28 @@ end
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 
+-- Helper function to teleport and touch players gently
+local function teleportAndTouch(targetPlayer)
+    local character = localPlayer.Character
+    local hrp = character and character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+
+    local targetHrp = targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not targetHrp then return end
+
+    local steps = 10
+    local increment = (targetHrp.Position - hrp.Position) / steps
+
+    for i = 1, steps do
+        hrp.CFrame = CFrame.new(hrp.Position + increment)
+        wait(0.1)
+    end
+end
+
 -- Run fling script for each player in the server one time
 for _, player in ipairs(Players:GetPlayers()) do
     if player ~= localPlayer then
-        localPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
-        wait(0.5) -- Ensure the player touches the target
+        teleportAndTouch(player)
         flingScript(player.Name)
         wait(1)
     end
