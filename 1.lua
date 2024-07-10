@@ -1,8 +1,9 @@
+-- Function to create the UI above the player's head
 local function createUIAboveHead(player)
     -- Check if the player's username matches "yarhmplus"
     if player.Name == "yarhmplus" then
-        -- Instances:
-        local BillboardGui = Instance.new("BillboardGui")
+        -- Create BillboardGui above the head
+  local BillboardGui = Instance.new("BillboardGui")
         local Frame = Instance.new("Frame", BillboardGui)
         local Frame1 = Instance.new("Frame", Frame)
         local UICorner = Instance.new("UICorner", Frame1)
@@ -18,15 +19,14 @@ local function createUIAboveHead(player)
         local UIGradient2 = Instance.new("UIGradient", yarhm)
 
         -- Properties:
-      BillboardGui.Adornee = player.Character.Head
-        BillboardGui.Size = UDim2.new(0, 200, 0, 50)  -- Adjust size as needed
-        BillboardGui.StudsOffset = Vector3.new(0, 2, 0)  -- Adjust vertical offset
+        BillboardGui.Adornee = player.Character.Head
+        BillboardGui.Size = UDim2.new(0, 500, 0, 100)
+        BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
         BillboardGui.AlwaysOnTop = true
-        BillboardGui.MaxDistance = 10  -- Visibility distance limit
 
         Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Frame.BackgroundTransparency = 1
-        Frame.Size = UDim2.new(1, 0, 1, 0)  -- Full size of the BillboardGui
+        Frame.Size = UDim2.new(0, 100, 0, 100)
 
         Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -98,6 +98,7 @@ local function createUIAboveHead(player)
     end
 end
 
+-- Function to check existing players when the script starts
 local function checkExistingPlayers()
     for _, player in ipairs(game.Players:GetPlayers()) do
         createUIAboveHead(player)
@@ -111,3 +112,4 @@ end)
 
 -- Check for existing players when the script starts
 checkExistingPlayers()
+
