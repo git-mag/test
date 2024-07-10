@@ -17,7 +17,8 @@ local specialFontColor = Color3.fromHex("#ffac33")
 
 local specialItemIds = {
     18333160858, 
-    18169574248  
+    18169574248,
+    18424094430
 }
 
 local function createTextLabel(player, text, color)
