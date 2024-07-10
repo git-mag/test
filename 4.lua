@@ -11,14 +11,12 @@ screenGui.ResetOnSpawn = false
 -- Create Frame
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 400, 0, 600)
-frame.Position = UDim2.new(0, 50, 0, 50)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
-frame.Position = UDim2.new(0.5, 0, 0.5, 0)
 frame.ClipsDescendants = true
 frame.Active = true
-frame.Draggable = true
 frame.Parent = screenGui
 
 -- Add UICorner to Frame
@@ -26,11 +24,19 @@ local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 10)
 frameCorner.Parent = frame
 
--- Create Resizable Constraint
-local uiResizeConstraint = Instance.new("UISizeConstraint")
-uiResizeConstraint.MinSize = Vector2.new(200, 300)
-uiResizeConstraint.MaxSize = Vector2.new(600, 900)
-uiResizeConstraint.Parent = frame
+-- Add resize handle
+local resizeHandle = Instance.new("Frame")
+resizeHandle.Size = UDim2.new(0, 20, 0, 20)
+resizeHandle.Position = UDim2.new(1, -10, 1, -10)
+resizeHandle.AnchorPoint = Vector2.new(1, 1)
+resizeHandle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+resizeHandle.BorderSizePixel = 0
+resizeHandle.Parent = frame
+
+-- Add UICorner to Resize Handle
+local resizeHandleCorner = Instance.new("UICorner")
+resizeHandleCorner.CornerRadius = UDim.new(0, 5)
+resizeHandleCorner.Parent = resizeHandle
 
 -- Create UIListLayout
 local listLayout = Instance.new("UIListLayout")
@@ -122,16 +128,80 @@ end)
 
 -- Function to toggle the GUI
 local function toggleGUI()
-    if screenGui.Enabled then
-        screenGui.Enabled = false
-    else
-        screenGui.Enabled = true
-    end
+    screenGui.Enabled = not screenGui.Enabled
 end
 
 -- Connect toggle function to right shift key
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if not gameProcessed and input.KeyCode == Enum.KeyCode.RightShift then
         toggleGUI()
+    end
+end)
+
+-- Make GUI draggable
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- Make GUI resizable
+local resizing, resizeInput, resizeStart, startSize
+
+local function resizeUpdate(input)
+    local delta = input.Position - resizeStart
+    frame.Size = UDim2.new(startSize.X.Scale, startSize.X.Offset + delta.X, startSize.Y.Scale, startSize.Y.Offset + delta.Y)
+end
+
+resizeHandle.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        resizing = true
+        resizeStart = input.Position
+        startSize = frame.Size
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                resizing = false
+            end
+        end)
+    end
+end)
+
+resizeHandle.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        resizeInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == resizeInput and resizing then
+        resizeUpdate(input)
     end
 end)
