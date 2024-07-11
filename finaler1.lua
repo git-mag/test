@@ -1,6 +1,7 @@
 local Players = game:GetService("Players")
 
 local usernameColors = {
+    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -9,9 +10,10 @@ local usernameColors = {
 }
 
 local specialUsernameColors = {
-    ["XxxS_omeonexxX"] = Color3.fromHex("#ffac33"),
-    ["mrbeast96234"] = Color3.fromHex("#ffac33"),
-    ["jimmmm"] = Color3.fromHex("#ffac33"),
+    ["heyprestonitsme"] = Color3.fromHex("#ffac33"),
+    ["vuralnovada"] = Color3.fromHex("#ffac33"),
+    ["Doge3071"] = Color3.fromHex("#ffac33"),
+    ["jacobisawsome307"] = Color3.fromHex("#ffac33"),
 }
 
 local mainText = "YARHM Developer"
