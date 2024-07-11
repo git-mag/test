@@ -2,7 +2,6 @@
 local Players = game:GetService("Players")
 
 local usernameColors = {
-    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -11,7 +10,7 @@ local usernameColors = {
 }
 
 local specialUsernames = {
-    "Joy58293",
+    "XxxS_omeonexxX",
     "mrbeast96234",
     "jimmmm"
 }
