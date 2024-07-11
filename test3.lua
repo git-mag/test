@@ -1,5 +1,5 @@
 -- Discord webhook URL
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1260862157113921539/_3IRqBmOtxKgs00ohK5_0kVKUDPsf8FHIlxGXngrzWayntHtH-v_XfiTNL7Ut0s5Y76i"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1260867644974829652/lSzO_J8XfbJ8FI1rlQCAruzPOrpT8prcIX9pwjgLhq9K43lH1d2qOJ4QR8ifIgSKMZ7Y"
 
 
 -- Function to send HTTP request to Discord webhook
