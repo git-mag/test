@@ -1,10 +1,6 @@
-local Players = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
-
 local usernameColors = {
-    ["Xxxs_omeonexxx"] = Color3.fromHex("#ff0000"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
-    ["yarhmplus"] = Color3.fromHex("#ff0000"),
+    ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
     ["givepetroblox"] = Color3.fromHex("#ff0000"),
     ["Bubberbolf"] = Color3.fromHex("#0030ff"),
@@ -17,21 +13,27 @@ local specialFontColor = Color3.fromHex("#ffac33")
 
 local specialUsernamesURL = "https://raw.githubusercontent.com/git-mag/test/main/names.txt"
 
--- Function to create the text label above the player's head
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
-        -- Main text label (YARHM Developer or YARHM+)
+        -- Remove any existing tags to avoid duplicates
+        local existingTag = head:FindFirstChild("DeveloperTag")
+        if existingTag then
+            existingTag:Destroy()
+        end
+        
         local mainTextLabel = Instance.new("BillboardGui")
+        mainTextLabel.Parent = tagsFolder
         mainTextLabel.Name = "DeveloperTag"
-        mainTextLabel.Size = UDim2.new(4, 0, 1, 0)  -- Adjust the size to control scaling
-        mainTextLabel.StudsOffset = Vector3.new(0, 2.5, 0)  -- Raise the main text slightly
+        mainTextLabel.Size = UDim2.new(5, 0, 1, 0)
+        mainTextLabel.StudsOffset = Vector3.new(0, 2, 0)
         mainTextLabel.Adornee = head
-        mainTextLabel.AlwaysOnTop = true
-        mainTextLabel.MaxDistance = 50  -- Limit the distance at which the label is visible
-        mainTextLabel.LightInfluence = 0  -- Ensure the text is not affected by lighting
+        mainTextLabel.AlwaysOnTop = false
+        mainTextLabel.MaxDistance = math.huge
+        mainTextLabel.LightInfluence = 0
         if player.Name == "joystick531" then
-		mainTextLabel.Brightness = 5
+            mainTextLabel.Brightness = 5
+        end
 
         local mainTextElement = Instance.new("TextLabel")
         mainTextElement.Size = UDim2.new(1, 0, 1, 0)
@@ -41,12 +43,9 @@ local function createTextLabel(player, text, color)
         mainTextElement.Font = mainFont
         mainTextElement.TextScaled = true
         mainTextElement.Parent = mainTextLabel
-        
-        mainTextLabel.Parent = head
     end
 end
 
--- Function to fetch the special usernames from the remote file
 local function fetchSpecialUsernames(callback)
     local success, response = pcall(function()
         return HttpService:GetAsync(specialUsernamesURL)
@@ -73,19 +72,22 @@ local function checkForPlayer(player, specialUsernames)
 end
 
 local function onCharacterAdded(player, specialUsernames)
-    player.CharacterAdded:Connect(function()
+    player.CharacterAdded:Connect(function(character)
+        -- Wait for 10 seconds before reapplying the tag
+        task.wait(10)
         checkForPlayer(player, specialUsernames)
     end)
 end
 
 fetchSpecialUsernames(function(specialUsernames)
-    for _, player in ipairs(Players:GetPlayers()) do
+    local function handlePlayer(player)
         checkForPlayer(player, specialUsernames)
         onCharacterAdded(player, specialUsernames)
     end
 
-    Players.PlayerAdded:Connect(function(player)
-        checkForPlayer(player, specialUsernames)
-        onCharacterAdded(player, specialUsernames)
-    end)
+    for _, player in ipairs(Players:GetPlayers()) do
+        handlePlayer(player)
+    end
+
+    Players.PlayerAdded:Connect(handlePlayer)
 end)
