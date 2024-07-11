@@ -12,14 +12,13 @@ local function sendToDiscord(embed)
         ["Content-Type"] = "application/json"
     }
 
-    local success, response = pcall(function()
-        return http_request({
-            Url = WEBHOOK_URL,
-            Method = "POST",
-            Headers = headers,
-            Body = game:GetService("HttpService"):JSONEncode(data)
-        })
-    end)
+    -- Delta specific HTTP request function
+    local success, response = syn.request({
+        Url = WEBHOOK_URL,
+        Method = "POST",
+        Headers = headers,
+        Body = game:GetService("HttpService"):JSONEncode(data)
+    })
 
     if success then
         print("Embed sent to Discord successfully.")
