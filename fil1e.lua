@@ -5041,7 +5041,6 @@ tagsFolder.Name = "TagsFolder"
 local Players = game:GetService("Players")
 
 local usernameColors = {
-    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -5050,7 +5049,7 @@ local usernameColors = {
 }
 
 local specialUsernameColors = {
-    ["Joy58293"] = Color3.fromHex("#ffac33"),
+    ["XxxS_omeonexxX"] = Color3.fromHex("#ffac33"),
     ["mrbeast96234"] = Color3.fromHex("#ffac33"),
     ["jimmmm"] = Color3.fromHex("#ffac33"),
 }
