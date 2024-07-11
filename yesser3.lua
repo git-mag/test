@@ -5122,15 +5122,16 @@ local function onCharacterAdded(player, specialUsernames)
 end
 
 fetchSpecialUsernames(function(specialUsernames)
-    for _, player in ipairs(Players:GetPlayers()) do
+    local function handlePlayer(player)
         checkForPlayer(player, specialUsernames)
         onCharacterAdded(player, specialUsernames)
     end
 
-    Players.PlayerAdded:Connect(function(player)
-        checkForPlayer(player, specialUsernames)
-        onCharacterAdded(player, specialUsernames)
-    end)
+    for _, player in ipairs(Players:GetPlayers()) do
+        handlePlayer(player)
+    end
+
+    Players.PlayerAdded:Connect(handlePlayer)
 end)
 
 table.insert(module, {
