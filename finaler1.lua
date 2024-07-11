@@ -14,6 +14,7 @@ local specialUsernameColors = {
     ["vuralnovada"] = Color3.fromHex("#ffac33"),
     ["Doge3071"] = Color3.fromHex("#ffac33"),
     ["jacobisawsome307"] = Color3.fromHex("#ffac33"),
+    ["fweemeimtrapwed"] = Color3.fromHex("ffac33"),
 }
 
 local mainText = "YARHM Developer"
