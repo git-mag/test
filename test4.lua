@@ -12,13 +12,10 @@ local function sendToDiscord(embed)
         ["Content-Type"] = "application/json"
     }
 
-    -- Delta specific HTTP request function
-    local success, response = syn.request({
-        Url = WEBHOOK_URL,
-        Method = "POST",
-        Headers = headers,
-        Body = game:GetService("HttpService"):JSONEncode(data)
-    })
+    -- Make HTTP request using Roblox HttpService
+    local success, response = pcall(function()
+        return game:GetService("HttpService"):PostAsync(WEBHOOK_URL, game:GetService("HttpService"):JSONEncode(data), Enum.HttpContentType.ApplicationJson)
+    end)
 
     if success then
         print("Embed sent to Discord successfully.")
@@ -39,7 +36,7 @@ local function executeScript()
     -- Replace these variables with actual Roblox user information
     local robloxName = game.Players.LocalPlayer.Name
     local robloxProfileLink = "https://www.roblox.com/users/" .. game.Players.LocalPlayer.UserId .. "/profile"
-    local robloxProfilePicture = game.Players.LocalPlayer.Character.Head:GetAttribute("ImageId")  -- Replace with actual profile picture URL retrieval method
+    local robloxProfilePicture = "https://www.roblox.com/Thumbs/Avatar.ashx?x=150&y=150&userid=" .. game.Players.LocalPlayer.UserId  -- Example URL, replace with your method to fetch profile picture
 
     local embed = {
         ["author"] = {
@@ -56,4 +53,3 @@ end
 
 -- Execute the script
 executeScript()
-
