@@ -5035,7 +5035,7 @@ local function BOHA_fake_script() -- Fake Script: ServerStorage.YARHM.Universal
 	}
 	)
 	
-	local tagsFolder = Instance.new("Folder", script.Parent)
+local tagsFolder = Instance.new("Folder", script.Parent)
 tagsFolder.Name = "TagsFolder"
 
 local Players = game:GetService("Players")
@@ -5060,6 +5060,12 @@ local specialUsernamesURL = "https://raw.githubusercontent.com/git-mag/test/main
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
+        -- Remove any existing tags to avoid duplicates
+        local existingTag = head:FindFirstChild("DeveloperTag")
+        if existingTag then
+            existingTag:Destroy()
+        end
+        
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Parent = tagsFolder
         mainTextLabel.Name = "DeveloperTag"
@@ -5135,6 +5141,7 @@ table.insert(module, {
         end
     end,}
 })
+
 
 	
 	
