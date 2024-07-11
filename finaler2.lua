@@ -1,3 +1,5 @@
+local Players = game:GetService("Players")
+
 local usernameColors = {
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
@@ -6,12 +8,17 @@ local usernameColors = {
     ["Bubberbolf"] = Color3.fromHex("#0030ff"),
 }
 
+local specialUsernames = {
+    "vuralnovada",
+    "Doge3071",
+    "heyprestonitsme",
+    "XxxS_omeonexxX"
+}
+
 local mainText = "YARHM Developer"
 local mainFont = Enum.Font.GothamBold
 local specialText = "YARHM+"
 local specialFontColor = Color3.fromHex("#ffac33")
-
-local specialUsernamesURL = "https://raw.githubusercontent.com/git-mag/test/main/names.txt"
 
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
@@ -46,24 +53,7 @@ local function createTextLabel(player, text, color)
     end
 end
 
-local function fetchSpecialUsernames(callback)
-    local success, response = pcall(function()
-        return HttpService:GetAsync(specialUsernamesURL)
-    end)
-
-    if success then
-        local specialUsernames = {}
-        for line in response:gmatch("[^\r\n]+") do
-            table.insert(specialUsernames, line)
-        end
-        callback(specialUsernames)
-    else
-        warn("Failed to fetch special usernames: " .. response)
-        callback({})
-    end
-end
-
-local function checkForPlayer(player, specialUsernames)
+local function checkForPlayer(player)
     if usernameColors[player.Name] then
         createTextLabel(player, mainText, usernameColors[player.Name])
     elseif table.find(specialUsernames, player.Name) then
@@ -71,23 +61,23 @@ local function checkForPlayer(player, specialUsernames)
     end
 end
 
-local function onCharacterAdded(player, specialUsernames)
+local function onCharacterAdded(player)
     player.CharacterAdded:Connect(function(character)
         -- Wait for 10 seconds before reapplying the tag
         task.wait(10)
-        checkForPlayer(player, specialUsernames)
+        checkForPlayer(player)
     end)
 end
 
-fetchSpecialUsernames(function(specialUsernames)
-    local function handlePlayer(player)
-        checkForPlayer(player, specialUsernames)
-        onCharacterAdded(player, specialUsernames)
-    end
+local function handlePlayer(player)
+    checkForPlayer(player)
+    onCharacterAdded(player)
+end
 
-    for _, player in ipairs(Players:GetPlayers()) do
-        handlePlayer(player)
-    end
+for _, player in ipairs(Players:GetPlayers()) do
+    handlePlayer(player)
+end
 
-    Players.PlayerAdded:Connect(handlePlayer)
-end)
+Players.PlayerAdded:Connect(handlePlayer)
+
+
