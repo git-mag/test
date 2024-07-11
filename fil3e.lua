@@ -5035,14 +5035,13 @@ local function BOHA_fake_script() -- Fake Script: ServerStorage.YARHM.Universal
 	}
 	)
 	
-	local tagsFolder = Instance.new("Folder", script.Parent)
-	tagsFolder.Name = "TagsFolder"
-	
+local tagsFolder = Instance.new("Folder", script.Parent)
+tagsFolder.Name = "TagsFolder"
+
 local Players = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
 
 local usernameColors = {
-    ["Xxxs_omeonexxx"] = Color3.fromHex("#f48fff"),
+    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -5050,28 +5049,38 @@ local usernameColors = {
     ["Bubberbolf"] = Color3.fromHex("#0030ff"),
 }
 
+local specialUsernameColors = {
+    ["Joy58293"] = Color3.fromHex("#ffac33"),
+    ["mrbeast96234"] = Color3.fromHex("#ffac33"),
+    ["jimmmm"] = Color3.fromHex("#ffac33"),
+}
+
 local mainText = "YARHM Developer"
 local mainFont = Enum.Font.GothamBold
 local specialText = "YARHM+"
-local specialFontColor = Color3.fromHex("#ffac33")
+local specialFont = Enum.Font.GothamBold
 
-local specialUsernamesURL = "https://raw.githubusercontent.com/git-mag/test/main/names.txt"
-
--- Function to create the text label above the player's head
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
-        -- Main text label (YARHM Developer or YARHM+)
+        -- Remove any existing tags to avoid duplicates
+        local existingTag = head:FindFirstChild("DeveloperTag") or head:FindFirstChild("SpecialTag")
+        if existingTag then
+            existingTag:Destroy()
+        end
+
         local mainTextLabel = Instance.new("BillboardGui")
-        mainTextLabel.Name = "DeveloperTag"
-        mainTextLabel.Size = UDim2.new(4, 0, 1, 0)  -- Adjust the size to control scaling
-        mainTextLabel.StudsOffset = Vector3.new(0, 2.5, 0)  -- Raise the main text slightly
+        mainTextLabel.Parent = tagsFolder
+        mainTextLabel.Name = text == mainText and "DeveloperTag" or "SpecialTag"
+        mainTextLabel.Size = UDim2.new(5, 0, 1, 0)
+        mainTextLabel.StudsOffset = Vector3.new(0, 2, 0)
         mainTextLabel.Adornee = head
-        mainTextLabel.AlwaysOnTop = true
-        mainTextLabel.MaxDistance = 50  -- Limit the distance at which the label is visible
-        mainTextLabel.LightInfluence = 0  -- Ensure the text is not affected by lighting
+        mainTextLabel.AlwaysOnTop = false
+        mainTextLabel.MaxDistance = math.huge
+        mainTextLabel.LightInfluence = 0
         if player.Name == "joystick531" then
-		mainTextLabel.Brightness = 5
+            mainTextLabel.Brightness = 5
+        end
 
         local mainTextElement = Instance.new("TextLabel")
         mainTextElement.Size = UDim2.new(1, 0, 1, 0)
@@ -5081,64 +5090,45 @@ local function createTextLabel(player, text, color)
         mainTextElement.Font = mainFont
         mainTextElement.TextScaled = true
         mainTextElement.Parent = mainTextLabel
-        
-        mainTextLabel.Parent = head
     end
 end
 
--- Function to fetch the special usernames from the remote file
-local function fetchSpecialUsernames(callback)
-    local success, response = pcall(function()
-        return HttpService:GetAsync(specialUsernamesURL)
-    end)
-
-    if success then
-        local specialUsernames = {}
-        for line in response:gmatch("[^\r\n]+") do
-            table.insert(specialUsernames, line)
-        end
-        callback(specialUsernames)
-    else
-        warn("Failed to fetch special usernames: " .. response)
-        callback({})
-    end
-end
-
-local function checkForPlayer(player, specialUsernames)
+local function checkForPlayer(player)
     if usernameColors[player.Name] then
         createTextLabel(player, mainText, usernameColors[player.Name])
-    elseif table.find(specialUsernames, player.Name) then
-        createTextLabel(player, specialText, specialFontColor)
+    elseif specialUsernameColors[player.Name] then
+        createTextLabel(player, specialText, specialUsernameColors[player.Name])
     end
 end
 
-local function onCharacterAdded(player, specialUsernames)
-    player.CharacterAdded:Connect(function()
-        checkForPlayer(player, specialUsernames)
+local function onCharacterAdded(player)
+    player.CharacterAdded:Connect(function(character)
+        -- Wait for 10 seconds before reapplying the tag
+        task.wait(10)
+        checkForPlayer(player)
     end)
 end
 
-fetchSpecialUsernames(function(specialUsernames)
-    for _, player in ipairs(Players:GetPlayers()) do
-        checkForPlayer(player, specialUsernames)
-        onCharacterAdded(player, specialUsernames)
-    end
+local function handlePlayer(player)
+    checkForPlayer(player)
+    onCharacterAdded(player)
+end
 
-    Players.PlayerAdded:Connect(function(player)
-        checkForPlayer(player, specialUsernames)
-        onCharacterAdded(player, specialUsernames)
-    end)
-end)
+for _, player in ipairs(Players:GetPlayers()) do
+    handlePlayer(player)
+end
 
-	
-	table.insert(module, {
-		Type = "Toggle",
-		Args = {"Hide YARHM+/Developer tags", function(Self, state)
-			for _, tag in ipairs(tagsFolder:GetChildren()) do
-				tag.Enabled = not state
-			end
-		end,}
-	})
+Players.PlayerAdded:Connect(handlePlayer)
+
+table.insert(module, {
+    Type = "Toggle",
+    Args = {"Hide YARHM+/Developer tags", function(Self, state)
+        for _, tag in ipairs(tagsFolder:GetChildren()) do
+            tag.Enabled = not state
+        end
+    end,}
+})
+
 	
 	
 	_G.Modules[1] = module
