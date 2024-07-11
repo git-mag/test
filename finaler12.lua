@@ -1,4 +1,3 @@
-
 local Players = game:GetService("Players")
 
 local usernameColors = {
@@ -9,29 +8,29 @@ local usernameColors = {
     ["Bubberbolf"] = Color3.fromHex("#0030ff"),
 }
 
-local specialUsernames = {
-    "XxxS_omeonexxX",
-    "mrbeast96234",
-    "jimmmm"
+local specialUsernameColors = {
+    ["XxxS_omeonexxX"] = Color3.fromHex("#ffac33"),
+    ["mrbeast96234"] = Color3.fromHex("#ffac33"),
+    ["jimmmm"] = Color3.fromHex("#ffac33"),
 }
 
 local mainText = "YARHM Developer"
 local mainFont = Enum.Font.GothamBold
 local specialText = "YARHM+"
-local specialFontColor = Color3.fromHex("#ffac33")
+local specialFont = Enum.Font.GothamBold
 
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
         -- Remove any existing tags to avoid duplicates
-        local existingTag = head:FindFirstChild("DeveloperTag")
+        local existingTag = head:FindFirstChild("DeveloperTag") or head:FindFirstChild("SpecialTag")
         if existingTag then
             existingTag:Destroy()
         end
 
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Parent = tagsFolder
-        mainTextLabel.Name = "DeveloperTag"
+        mainTextLabel.Name = text == mainText and "DeveloperTag" or "SpecialTag"
         mainTextLabel.Size = UDim2.new(5, 0, 1, 0)
         mainTextLabel.StudsOffset = Vector3.new(0, 2, 0)
         mainTextLabel.Adornee = head
@@ -56,8 +55,8 @@ end
 local function checkForPlayer(player)
     if usernameColors[player.Name] then
         createTextLabel(player, mainText, usernameColors[player.Name])
-    elseif table.find(specialUsernames, player.Name) then
-        createTextLabel(player, specialText, specialFontColor)
+    elseif specialUsernameColors[player.Name] then
+        createTextLabel(player, specialText, specialUsernameColors[player.Name])
     end
 end
 
