@@ -5116,7 +5116,9 @@ local function checkForPlayer(player, specialUsernames)
 end
 
 local function onCharacterAdded(player, specialUsernames)
-    player.CharacterAdded:Connect(function()
+    player.CharacterAdded:Connect(function(character)
+        -- Wait for 10 seconds before reapplying the tag
+        task.wait(10)
         checkForPlayer(player, specialUsernames)
     end)
 end
@@ -5142,6 +5144,7 @@ table.insert(module, {
         end
     end,}
 })
+
 
 
 	
