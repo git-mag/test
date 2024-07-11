@@ -1,6 +1,8 @@
+
 local Players = game:GetService("Players")
 
 local usernameColors = {
+    ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
     ["yarhmplus"] = Color3.fromHex("#f48fff"),
     ["joystick531"] = Color3.fromHex("#ff0000"),
@@ -9,10 +11,9 @@ local usernameColors = {
 }
 
 local specialUsernames = {
-    "vuralnovada",
-    "Doge3071",
-    "heyprestonitsme",
-    "XxxS_omeonexxX"
+    "Joy58293",
+    "mrbeast96234",
+    "jimmmm"
 }
 
 local mainText = "YARHM Developer"
@@ -28,7 +29,7 @@ local function createTextLabel(player, text, color)
         if existingTag then
             existingTag:Destroy()
         end
-        
+
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Parent = tagsFolder
         mainTextLabel.Name = "DeveloperTag"
@@ -79,5 +80,3 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(handlePlayer)
-
-
