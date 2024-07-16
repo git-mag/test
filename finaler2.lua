@@ -57,10 +57,13 @@ local function createTextLabel(player, text, color)
 end
 
 local function showWelcomeMessage(player, color)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
     local welcomeMessage = Instance.new("TextLabel")
-    welcomeMessage.Parent = tagsFolder
-    welcomeMessage.Size = UDim2.new(0.3, 0, 0.1, 0)
-    welcomeMessage.Position = UDim2.new(0.35, 0, 0, 0)
+    welcomeMessage.Parent = screenGui
+    welcomeMessage.Size = UDim2.new(0.5, 0, 0.1, 0)
+    welcomeMessage.Position = UDim2.new(0.25, 0, 0.35, 0)
     welcomeMessage.Text = player.Name .. " has joined the game!"
     welcomeMessage.TextColor3 = color
     welcomeMessage.BackgroundTransparency = 1
@@ -68,7 +71,7 @@ local function showWelcomeMessage(player, color)
     welcomeMessage.TextScaled = true
 
     task.wait(10)
-    welcomeMessage:Destroy()
+    screenGui:Destroy()
 end
 
 local function checkForPlayer(player)
@@ -98,12 +101,3 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(handlePlayer)
-
-table.insert(module, {
-    Type = "Toggle",
-    Args = {"Hide YARHM+/Developer tags", function(Self, state)
-        for _, tag in ipairs(tagsFolder:GetChildren()) do
-            tag.Enabled = not state
-        end
-    end,}
-})
