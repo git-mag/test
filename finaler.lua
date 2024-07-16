@@ -1,3 +1,6 @@
+local tagsFolder = Instance.new("Folder", script.Parent)
+tagsFolder.Name = "TagsFolder"
+
 local Players = game:GetService("Players")
 
 local usernameColors = {
@@ -10,11 +13,9 @@ local usernameColors = {
 }
 
 local specialUsernameColors = {
-    ["heyprestonitsme"] = Color3.fromHex("#ffac33"),
-    ["vuralnovada"] = Color3.fromHex("#ffac33"),
-    ["Doge3071"] = Color3.fromHex("#ffac33"),
-    ["jacobisawsome307"] = Color3.fromHex("#ffac33"),
-    ["fweemeimtrapwed"] = Color3.fromHex("ffac33"),
+    ["Joy58293"] = Color3.fromHex("#ffac33"),
+    ["mrbeast96234"] = Color3.fromHex("#ffac33"),
+    ["jimmmm"] = Color3.fromHex("#ffac33"),
 }
 
 local mainText = "YARHM Developer"
@@ -55,9 +56,25 @@ local function createTextLabel(player, text, color)
     end
 end
 
+local function showWelcomeMessage(player, color)
+    local welcomeMessage = Instance.new("TextLabel")
+    welcomeMessage.Parent = tagsFolder
+    welcomeMessage.Size = UDim2.new(0.3, 0, 0.1, 0)
+    welcomeMessage.Position = UDim2.new(0.35, 0, 0, 0)
+    welcomeMessage.Text = player.Name .. " has joined the game!"
+    welcomeMessage.TextColor3 = color
+    welcomeMessage.BackgroundTransparency = 1
+    welcomeMessage.Font = mainFont
+    welcomeMessage.TextScaled = true
+
+    task.wait(10)
+    welcomeMessage:Destroy()
+end
+
 local function checkForPlayer(player)
     if usernameColors[player.Name] then
         createTextLabel(player, mainText, usernameColors[player.Name])
+        showWelcomeMessage(player, usernameColors[player.Name])
     elseif specialUsernameColors[player.Name] then
         createTextLabel(player, specialText, specialUsernameColors[player.Name])
     end
@@ -81,3 +98,12 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(handlePlayer)
+
+table.insert(module, {
+    Type = "Toggle",
+    Args = {"Hide YARHM+/Developer tags", function(Self, state)
+        for _, tag in ipairs(tagsFolder:GetChildren()) do
+            tag.Enabled = not state
+        end
+    end,}
+})
