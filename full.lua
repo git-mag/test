@@ -3066,7 +3066,7 @@ local function PDYWCPD_fake_script() -- Fake Script: StarterGui.YARHM.Murder Mys
     end
 
 	local module = {}
-	module["gameId"] = 0 -- 66654135 -- Restrict module to a certain game ID only. 0 allows all games.
+	module["gameId"] = 0 Restrict module to a certain game ID only. 0 allows all games.
 	
 	local playerESP = false
 	local sheriffAimbot = false
