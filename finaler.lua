@@ -3,6 +3,7 @@ tagsFolder.Name = "TagsFolder"
 
 local Players = game:GetService("Players")
 
+-- Customize these with your own usernames and developers
 local usernameColors = {
     ["XxxS_omeonexxX"] = Color3.fromHex("#f48fff"),
     ["Dextacular"] = Color3.fromHex("#f48fff"),
@@ -13,28 +14,37 @@ local usernameColors = {
 }
 
 local specialUsernameColors = {
-    ["Joy58293"] = Color3.fromHex("#ffac33"),
-    ["mrbeast96234"] = Color3.fromHex("#ffac33"),
-    ["jimmmm"] = Color3.fromHex("#ffac33"),
+    ["heyprestonitsme"] = Color3.fromHex("#ffac33"),
+    ["vuralnovada"] = Color3.fromHex("#ffac33"),
+    ["Doge3071"] = Color3.fromHex("#ffac33"),
+    ["jacobisawsome307"] = Color3.fromHex("#ffac33"),
+    ["fweemeimtrapwed"] = Color3.fromHex("#ffac33"),
+}
+
+local knowledgeableUsernameColors = {
+    ["mrghostmr184"] = Color3.fromHex("#bf40bf"),
+    ["God_Hood07"] = Color3.fromHex("#bf40bf"),
 }
 
 local mainText = "YARHM Developer"
 local mainFont = Enum.Font.GothamBold
 local specialText = "YARHM+"
 local specialFont = Enum.Font.GothamBold
+local knowledgeableText = "somewhat knowledgeable yarhm user"
+local knowledgeableFont = Enum.Font.GothamBold
 
 local function createTextLabel(player, text, color)
     local head = player.Character and player.Character:FindFirstChild("Head")
     if head then
         -- Remove any existing tags to avoid duplicates
-        local existingTag = head:FindFirstChild("DeveloperTag") or head:FindFirstChild("SpecialTag")
+        local existingTag = head:FindFirstChild("DeveloperTag") or head:FindFirstChild("SpecialTag") or head:FindFirstChild("KnowledgeableTag")
         if existingTag then
             existingTag:Destroy()
         end
 
         local mainTextLabel = Instance.new("BillboardGui")
         mainTextLabel.Parent = tagsFolder
-        mainTextLabel.Name = text == mainText and "DeveloperTag" or "SpecialTag"
+        mainTextLabel.Name = text == mainText and "DeveloperTag" or text == specialText and "SpecialTag" or "KnowledgeableTag"
         mainTextLabel.Size = UDim2.new(5, 0, 1, 0)
         mainTextLabel.StudsOffset = Vector3.new(0, 2, 0)
         mainTextLabel.Adornee = head
@@ -51,35 +61,23 @@ local function createTextLabel(player, text, color)
         mainTextElement.TextColor3 = color
         mainTextElement.BackgroundTransparency = 1
         mainTextElement.Font = mainFont
+        if text == specialText then
+            mainTextElement.Font = specialFont
+        elseif text == knowledgeableText then
+            mainTextElement.Font = knowledgeableFont
+        end
         mainTextElement.TextScaled = true
         mainTextElement.Parent = mainTextLabel
     end
 end
 
-local function showWelcomeMessage(player, color)
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Parent = player:WaitForChild("PlayerGui")
-
-    local welcomeMessage = Instance.new("TextLabel")
-    welcomeMessage.Parent = screenGui
-    welcomeMessage.Size = UDim2.new(0.5, 0, 0.1, 0)
-    welcomeMessage.Position = UDim2.new(0.25, 0, 0.35, 0)
-    welcomeMessage.Text = player.Name .. " has joined the game!"
-    welcomeMessage.TextColor3 = color
-    welcomeMessage.BackgroundTransparency = 1
-    welcomeMessage.Font = mainFont
-    welcomeMessage.TextScaled = true
-
-    task.wait(10)
-    screenGui:Destroy()
-end
-
 local function checkForPlayer(player)
     if usernameColors[player.Name] then
         createTextLabel(player, mainText, usernameColors[player.Name])
-        showWelcomeMessage(player, usernameColors[player.Name])
     elseif specialUsernameColors[player.Name] then
         createTextLabel(player, specialText, specialUsernameColors[player.Name])
+    elseif knowledgeableUsernameColors[player.Name] then
+        createTextLabel(player, knowledgeableText, knowledgeableUsernameColors[player.Name])
     end
 end
 
@@ -101,3 +99,4 @@ for _, player in ipairs(Players:GetPlayers()) do
 end
 
 Players.PlayerAdded:Connect(handlePlayer)
+
