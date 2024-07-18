@@ -1,5 +1,4 @@
-local tagsFolder = Instance.new("Folder", script.Parent)
-tagsFolder.Name = "TagsFolder"
+
 
 local Players = game:GetService("Players")
 
